@@ -6,12 +6,12 @@ import java.util.function.Consumer;
 
 public class Arrangement {
 
-	public <E> void permutation(List<E> str, Consumer<List<E>> consumer) {
-		arrange(str, new ArrayList<>(), consumer);
+	public <E> void permutation(List<E> list, Consumer<List<E>> consumer) {
+		arrange(list, new ArrayList<>(), consumer);
 	}
 
-	public <E> void permutation(List<E> str, int n, Consumer<List<E>> consumer) {
-		arrange(str, new ArrayList<>(), 0, n, consumer);
+	public <E> void permutation(List<E> list, int n, Consumer<List<E>> consumer) {
+		arrange(list, new ArrayList<>(), 0, n, consumer);
 	}
 
 
