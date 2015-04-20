@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * 最慢的是System.out.println()!
  * f1最快，f2最慢。
+ * n太大时f1会出错。。。
  */
 public class Hanoi {
 	public static Map<String, StringBuilder> map = new HashMap<>();
@@ -34,11 +35,7 @@ public class Hanoi {
 		if (n == 1) {
 			return String.format("移动%c到%c\n", a, c);
 		} else {
-			StringBuilder sb = new StringBuilder();
-			sb.append(f2(n - 1, a, c, b));
-			sb.append(String.format("移动%c到%c\n", a, c));
-			sb.append(f2(n - 1, b, a, c));
-			return sb.toString();
+			return f2(n - 1, a, c, b) + String.format("移动%c到%c\n", a, c) + f2(n - 1, b, a, c);
 		}
 	}
 
