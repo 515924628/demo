@@ -2,7 +2,6 @@ import org.wltea.expression.ExpressionEvaluator;
 
 public class Expression {
 	public static void main(String[] args) {
-		Object result = ExpressionEvaluator.evaluate("1+2*3");
-		System.out.println(result);
+		System.out.println(ExpressionEvaluator.evaluate("0.1+0.2"));
 	}
 }
