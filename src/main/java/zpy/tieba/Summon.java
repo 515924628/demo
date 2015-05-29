@@ -8,11 +8,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.Cookie;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class Summon {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		Summon summon = (Summon) getBean("summon");
@@ -26,7 +29,7 @@ public class Summon {
 
 		for (int i = 0; i < 10; i++) {
 			HtmlInput co = (HtmlInput) page.querySelector("input[name=co]");
-			co.setValueAttribute(summon.context(i));
+			co.setValueAttribute(summon.context(i,5));
 			HtmlInput sub = (HtmlInput) page.querySelector("input[name=sub1]");
 			sub.click();
 			Thread.sleep(2000);
@@ -36,12 +39,13 @@ public class Summon {
 
 	private JdbcTemplate jdbcTemplate;
 
+	@Resource(name = "jdbcTemplate")
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public String context(int start) {
-		List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT name FROM t_zpy LIMIT ?,5;", start * 10);
+	public String context(int start, int count) {
+		List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT name FROM t_zpy LIMIT ?,?;", start * count, count);
 		StringBuilder sb = new StringBuilder();
 		for (Map<String, Object> map : list) {
 			sb.append("@").append(map.get("name")).append(" ");
