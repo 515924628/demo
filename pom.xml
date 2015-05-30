@@ -50,5 +50,12 @@
 			<artifactId>spring-context</artifactId>
 			<version>4.1.6.RELEASE</version>
 		</dependency>
+
+		<!--hibernate-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.8.Final</version>
+		</dependency>
 	</dependencies>
 </project>
