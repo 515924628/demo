@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Controller
-public class UploadAction {
+public class UploadController {
 
 	@RequestMapping("/upload.do")
 	public String upload(@RequestParam(value = "file",required = false)MultipartFile file){
