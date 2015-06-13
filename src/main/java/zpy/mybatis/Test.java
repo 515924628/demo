@@ -5,6 +5,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import zpy.mybatis.mapper.UserDao;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -16,10 +17,10 @@ public class Test {
 		SqlSessionFactory sessionFactory = builder.build(reader);
 		SqlSession session = sessionFactory.openSession();
 
-		User user = session.selectOne("zpy.mybatis.BaseDao.getUser", 1);
+		User user = session.selectOne("zpy.mybatis.mapper.BaseDao.getUser", 1);
 		System.out.println(user.getName());
 
-		BaseDao dao = session.getMapper(BaseDao.class);
+		UserDao dao = session.getMapper(UserDao.class);
 		System.out.println(dao.getUser(1).getName());
 
 		session.close();

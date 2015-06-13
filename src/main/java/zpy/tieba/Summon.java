@@ -6,19 +6,16 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.util.Cookie;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import zpy.util.Spring;
 
-import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 @Service
 public class Summon {
 	public static void main(String[] args) throws IOException, InterruptedException {
-		Summon summon = (Summon) getBean("summon");
+		Summon summon = (Summon) Spring.get("tieba.xml", "summon");
 		WebClient client = new WebClient(BrowserVersion.CHROME);
 		client.getOptions().setCssEnabled(false);
 		CookieManager cookieManager = new CookieManager();
@@ -37,23 +34,10 @@ public class Summon {
 
 	}
 
-	private JdbcTemplate jdbcTemplate;
-
-	@Resource(name = "jdbcTemplate")
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
-
 	public String context(int start, int count) {
-		List<Map<String, Object>> list = jdbcTemplate.queryForList("SELECT name FROM t_zpy LIMIT ?,?;", start * count, count);
+
 		StringBuilder sb = new StringBuilder();
-		for (Map<String, Object> map : list) {
-			sb.append("@").append(map.get("name")).append(" ");
-		}
 		return sb.toString();
 	}
 
-	public static Object getBean(String id) {
-		return new ClassPathXmlApplicationContext("tieba.xml").getBean(id);
-	}
 }

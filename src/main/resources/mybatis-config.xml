@@ -20,6 +20,6 @@
 
 
 	<mappers>
-		<mapper resource="zpy/mybatis/user.xml"/>
+		<mapper resource="zpy/mybatis/mapper/user.xml"/>
 	</mappers>
 </configuration>
